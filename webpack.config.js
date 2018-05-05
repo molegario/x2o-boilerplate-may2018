@@ -7,7 +7,7 @@ module.exports = {
     // entry point -> output
     entry: './src/app.js',
     output: {
-        path: path.join(__dirname, 'public'),
+        path: path.join(__dirname),
         filename: 'bundle.js'
     },
     //loader
@@ -31,8 +31,10 @@ module.exports = {
     ],
     devtool: 'cheap-module-eval-source-map',
     devServer: {
-        contentBase: path.join(__dirname, 'public'),
-        historyApiFallback: true
+        contentBase: path.join(__dirname),
+        historyApiFallback: {
+            index: '/index.htm'
+        }
     }
 };
 

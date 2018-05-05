@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import Modal from 'react-modal';
 import 'normalize.css/normalize.css';
-import './styles/styles.scss';
+import '../styles/styles.scss';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
-import {addExpense} from './actions/expenses';
-import {setTextFilter} from './actions/filters';
-import getVisibleExpenses from './selectors/expenses';
+import getFilteredCollection from './selectors/collector';
+import {addItem} from './actions/collector';
+import {setStartDate, setEndDate} from './actions/filters';
 
 //init modal parent ??
 Modal.setAppElement('#app');
@@ -17,49 +17,32 @@ const store = configureStore();
 store.subscribe(()=>{
     const state = store.getState();
     console.log(state);
-    const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-    console.log(visibleExpenses);
+    const filteredCollection = getFilteredCollection(state.collector, state.filters);
+    console.log(filteredCollection);
 });
 
-
-//addExpense - water bill
-store.dispatch(addExpense({
+//post init actions
+store.dispatch(addItem({
     description: 'water bill',
-    amount: 500,
+    amount: 50000,
     note: 'on time this month',
     createdAt: 420
 }));
-//addexpense - gas bill
-store.dispatch(addExpense({
+store.dispatch(addItem({
     description: 'gas bill',
-    amount: 300,
-    note: 'was roomies turn but oh well',
-    createdAt: 666
+    amount: 150000,
+    note: 'on time this month',
+    createdAt: -420
 }));
-store.dispatch(addExpense({
-    description: 'porn bill',
-    amount: 310,
-    note: 'cut down next month',
-    createdAt: 6366
+store.dispatch(addItem({
+    description: 'power bill',
+    amount: 5000,
+    note: 'on time this month',
+    createdAt: 420000
 }));
-store.dispatch(addExpense({
-    description: 'another porn bill',
-    amount: 12,
-    note: 'cut down next month',
-    createdAt: 220
-}));
-store.dispatch(addExpense({
-    description: 'more porn bill',
-    amount: 120,
-    note: 'cut down next month',
-    createdAt: 999
-}));
-//settextfilter - bill
-// store.dispatch(setTextFilter('bill'));
-
-// setTimeout(()=>{
-//     store.dispatch(setTextFilter('porn'));
-// }, 3000);
+store.dispatch(setStartDate());
+store.dispatch(setEndDate());
+//post init actions
 
 const jsx = (
     <Provider store={store}>

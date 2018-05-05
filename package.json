@@ -1,12 +1,11 @@
 {
-  "name": "expensify",
+  "name": "x2oboilerplate",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/molegario/react-project.git",
   "author": "M Olegario",
   "license": "MIT",
   "scripts": {
-    "serve": "live-server public/",
     "build": "webpack",
     "dev-server": "webpack-dev-server",
     "test": "jest"
